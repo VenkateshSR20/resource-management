@@ -10,9 +10,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.management</groupId>
-	<artifactId>ors</artifactId>
+	<artifactId>resource-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ors</name>
+	<name>resource-management</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
