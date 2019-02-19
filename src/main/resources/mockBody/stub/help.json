@@ -1,0 +1,29 @@
+{
+	"GET /customer-service/v1/customers/*/benefits": [
+		{
+		    "?api_mode=stub_api_200": "Returns the status code 200 response for a customer service customer benefits resource response.",
+		    "?api_mode=stub_api_200_non-staff": "Returns the status code 200 response for a customer service customer benefits resource response containing only non-staff policies.",
+		    "?api_mode=stub_api_200_staff-and-non-staff": "Returns the status code 200 response for a customer service customer benefits resource response containing staff and non-staff policies.",
+		    "?api_mode=stub_api_200_non-staff-multi-sponsor": "Returns the status code 200 response for a customer service customer benefits drug coverages resource response containing non-staff policies.",
+		    "?api_mode=stub_api_200_staff-only": "Returns the status code 200 response for a customer service customer benefits resource response containing only staff policies.",
+		    "?api_mode=stub_api_400_invalid-input-parameter": "Returns the status code 400 response for when parameters in body are invalid.",
+		    "?api_mode=stub_api_400_request-validation-error": "Returns the status code 400 response for when required parameters are missing from the body.",
+		    "?api_mode=stub_api_400_benefit-not-found-error": "Returns the status code 400 response when a specific benefit is not available for the digital id provided.",
+		    "?api_mode=stub_api_401_expired-access-token": "Returns the status code 401 response for when access token is expired.",
+		    "?api_mode=stub_api_401_invalid-access-token": "Returns the status code 401 response for when access token is invalid.",
+		    "?api_mode=stub_api_401_missing-authorization": "Returns the status code 401 response for when access token is missing.",
+		    "?api_mode=stub_api_401_invalid-consumer-key": "Returns the status code 401 response for when consumer key is invalid.",
+		    "?api_mode=stub_api_401_missing-consumer-key": "Returns the status code 401 response for when consumer key is missing.",
+		    "?api_mode=stub_api_403": "Returns the status code 403 response for when access to the requested resource is denied.",
+		    "?api_mode=stub_api_403_restricted-policy": "Returns the status code 403 response for when access to the requested resource is denied to the call centre user.",
+		    "?api_mode=stub_api_404": "Returns the status code 404 response for when a requested resource is not found.",
+		    "?api_mode=stub_api_429": "Returns the status code 429 response for when spike arrest limit has been exhausted.",
+		    "?api_mode=stub_api_500": "Returns the status code 500 response for an internal server error."
+  		},
+  		{
+    		"?api_mode=test_api_200": "Returns the status code 200 response for a customer service customer benefits drug coverage resource response.",
+    		"?api_mode=test_api_200_french": "Returns the status code 200 French response for a customer service customer benefits drug coverage resource response.",
+    		"?api_mode=test_api_500": "Returns the status code 500 response for an internal server error."
+  		}
+  	]
+}

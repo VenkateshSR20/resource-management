@@ -1,0 +1,244 @@
+{
+  "data": {
+    "customerRecords": [
+      {
+        "id": "1234",
+        "drugCoverages": [
+          {
+            "policy": {
+              "id": "5678"
+            },
+            "benefit": {
+              "id": "67890"
+            },
+            "coverageStatus": {
+              "code": "9001",
+              "description": "Family Coverage"
+            },
+            "featureExclusion": {
+              "code": "3",
+              "description": "Special",
+              "messages": [
+                {
+                  "url": "http://test.com/",
+                  "text": "www.test.com"
+                }
+              ]
+            },
+            "benefitEffectiveDateMessage": "Our records show you will have coverage December 15, 2017.",
+            "hasCustomPriorAuthorizationForms": false,
+            "isDrugLookupFeatureAllowed": true,
+            "tierPlan": "three",
+            "tiers": [
+              {
+                "type": "tierOne",
+                "name": "Specialty"
+              },
+              {
+                "type": "tierTwo",
+                "name": "Acute"
+              },
+              {
+                "type": "tierThree",
+                "name": "Maintenance"
+              }
+            ],
+            "deductibles": [
+              {
+                "detail": {
+                  "tierOne": [
+                    "Not Applicable"
+                  ],
+                  "tierTwo": [
+                    "Not Applicable"
+                  ],
+                  "tierThree": [
+                    "Not Applicable"
+                  ]
+                },
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "DENT",
+                      "description": "Dental"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  },
+                  {
+                    "name": {
+                      "code": "VIS",
+                      "description": "Vision"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  },
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ],
+                "preferredProviderMessage": [
+                  "Your plan has a Pharmacy Network Value Plan. Eligible expenses for prescription drugs...."
+                ]
+              }
+            ],
+            "overallMaximums": [
+              {
+                "details": [
+                  "$11,000,000 lifetime"
+                ],
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  },
+                  {
+                    "name": {
+                      "code": "VIS",
+                      "description": "Vision"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ]
+              }
+            ],
+            "overallReinstatements": [
+              {
+                "details": [
+                  "$1,000 annually"
+                ],
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  },
+                  {
+                    "name": {
+                      "code": "VIS",
+                      "description": "Vision"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ]
+              }
+            ],
+            "payables": [
+              {
+                "detail": {
+                  "tierOne": {
+                    "coinsuranceBreakpoints": [
+                      "100%"
+                    ]
+                  },
+                  "tierTwo": {
+                    "coinsuranceBreakpoints": [
+                      "80%"
+                    ]
+                  },
+                  "tierThree": {
+                    "coinsuranceBreakpoints": [
+                      "75%"
+                    ]
+                  }
+                },
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  },
+                  {
+                    "name": {
+                      "code": "VIS",
+                      "description": "Vision"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ],
+                "preferredProviderMessages": [
+                  "95% for drugs purchased from Costco Wholesale Canada Ltd or one of its affiliates using the prescription drug identification card (does not apply to purchases in Quebec)."
+                ]
+              }
+            ],
+            "maximumsAndFrequencies": [
+              {
+                "coverages": [
+                  {
+                    "tierOne": [
+                      "$10,000 per calendar year(s)"
+                    ],
+                    "tierTwo": [
+                      "$15,000 per calendar year(s)"
+                    ],
+                    "tierThree": [
+                      "Not Applicable"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "dispenseFeeLimits": {
+              "tierOne": {
+                "limit": "$5.00",
+                "payableAt": "100%"
+              },
+              "tierTwo": {
+                "limit": "$7.50",
+                "payableAt": "80%"
+              },
+              "tierThree": {
+                "limit": "$9.00",
+                "payableAt": "75%"
+              }
+            },
+            "planVariationMessage": {
+              "tierOne": [
+                "Your plan covers specialty medications which are generally used to treat complex or rare conditions."
+              ],
+              "tierTwo": [
+                "Your plan covers acute medications used treat one-time or short-term conditions."
+              ],
+              "tierThree": [
+                "Your plan covers maintenance medications which are often prescribed to treat chronic or long-term conditions."
+              ],
+              "therapeuticClassPricing": [
+                "Your plan has Therapeutic Class Pricing. <href >Click here for details.</href>"
+              ],
+              "priceFiles": [
+                "lorem ipsum"
+              ],
+              "policyVariations": [
+                "Your plan contains cost containment and cost-sharing options. For complete details of this feature, please refer to the benefit information provided by your plan sponsor or contact a customer service representative for assistance."
+              ],
+              "deferredReimbursements": [
+                "lorem ipsum"
+              ]
+            },
+            "policyVariationBenefitMessages": [
+              {
+                "messages": [
+                  "Your plan includes Deferred Reimbursement, please refer to the benefits information"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "uuid": "ae87448d-e0ff-40c6-b64d-2c118d62cb1c",
+    "requestId": "8737ccbc-210f-4d47-a65f-3f1bd149824c",
+    "correlationId": "190d4b2d-01c6-42bb-9d49-5edf646af874"
+  }
+}

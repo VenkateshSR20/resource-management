@@ -1,0 +1,133 @@
+{
+  "data": {
+    "customerRecords": [
+      {
+        "id": "1234",
+        "drugCoverages": [
+          {
+            "policy": {
+              "id": "5678"
+            },
+            "benefit": {
+              "id": "67890"
+            },
+            "coverageStatus": {
+              "code": "9001",
+              "description": "Protection familiale"
+            },
+            "featureExclusion": {
+              "code": "3",
+              "description": "Special",
+              "messages": [
+                {
+                  "url": "http://test.com/",
+                  "text": "www.test.com"
+                }
+              ]
+            },
+            "benefitEffectiveDateMessage": "Nos dossiers montrent que vous aurez une couverture d'assurance jusqu'au 15 décembre 2017.",
+            "hasCustomPriorAuthorizationForms": false,
+            "isDrugLookupFeatureAllowed": true,
+            "tierPlan": "three",
+            "tiers": [
+              {
+                "type": "tierOne",
+                "name": "Spécialisé"
+              },
+              {
+                "type": "tierTwo",
+                "name": "Action immédiate"
+              },
+              {
+                "type": "tierThree",
+                "name": "Entretien"
+              }
+            ],
+            "deductibles": [
+              {
+                "detail": {
+                  "tierOne": [
+                    "Sans objet"
+                  ],
+                  "tierTwo": [
+                    "Sans objet"
+                  ],
+                  "tierThree": [
+                    "Sans objet"
+                  ]
+                }
+              }
+            ],
+            "payables": [
+              {
+                "detail": {
+                  "tierOne": {
+                    "coinsuranceBreakpoints":[ "100%"]
+                  },
+                  "tierTwo": {
+                    "coinsuranceBreakpoints":[ "80%"]
+                  },
+                  "tierThree": {
+                    "coinsuranceBreakpoints":[ "75%"]
+                  }
+                }
+              }
+            ],
+            "maximumsAndFrequencies": [
+              {}
+            ],
+            "dispenseFeeLimit": {
+              "tierOne": {
+                "limit": "5 $",
+                "payableAt": "100 %"
+              },
+              "tierTwo": {
+                "limit": "7,50 $",
+                "payableAt": "80 %"
+              },
+              "tierThree": {
+                "limit": "9 $",
+                "payableAt": "75 %"
+              }
+            },
+            "planVariationMessage": {
+              "tierOne": [
+                "Votre régime couvre les médicaments spécialisés lesquels sont généralement utilises pour traiter des affections complexes ou rares."
+              ],
+              "tierTwo": [
+                "Votre régime couvre les mécaments à action immédiate, lesquels servent à traiter des affections qui surviennent une seule fois ou des affections de courte durée."
+              ],
+              "tierThree": [
+                "Votre régime couvre les médicaments d'entretien, lesquels sont souvent prescrits pour traiter les affections chroniques ou de longue durée."
+              ],
+              "therapeuticClassPricing": [
+                "lorem ipsum"
+              ],
+              "priceFiles": [
+                "lorem ipsum"
+              ],
+              "policyVariations": [
+                " lorem ipsum"
+              ],
+              "deferredReimbursements": [
+                "lorem ipsum"
+              ]
+            },
+            "policyVariationBenefitMessages": [
+              {
+                "messages": [
+                  "lorem ipsum"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "uuid": "ae87448d-e0ff-40c6-b64d-2c118d62cb1c",
+    "requestId": "8737ccbc-210f-4d47-a65f-3f1bd149824c",
+    "correlationId": "190d4b2d-01c6-42bb-9d49-5edf646af874"
+  }
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/blueprint"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xmlns:enc="http://karaf.apache.org/xmlns/jasypt/v1.0.0" 
+	xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.5.0"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+		http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0	http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd	
+		http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd 
+		http://karaf.apache.org/xmlns/jasypt/v1.0.0 http://karaf.apache.org/xmlns/jasypt/v1.0.0	
+		http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.5.0 http://aries.apache.org/schemas/blueprint-ext/blueprint-ext-1.5.xsd
+	">
+	
+	<!-- Retrieve the shared instance of the EncryptionManager from OSGI registry -->
+	<reference id="encryptionManager" interface="aisc.core.security.api.EncryptionManager"/>
+
+	<!-- Retrieve an instance of the PropertyPlaceholderCryptoHandler from the OSGI registry -->
+	<reference id="PropertyPlaceholderCryptoHandler" interface="aisc.core.security.api.PropertyPlaceholderCryptoHandler"/>
+
+	<reference id="encryptedPropertiesParser"
+		interface="org.apache.camel.component.properties.AugmentedPropertyNameAwarePropertiesParser"
+		filter="(name=Core_Custom_EncryptedPropertiesParser)"/>
+	
+	<!-- ================================================================================================== -->
+	<!-- OSGI Blueprint Property Placeholder -->
+	<!-- ================================================================================================== -->
+	<cm:property-placeholder id="config" persistent-id="com.Resource" update-strategy="reload">
+		<!-- The Default Properties if file not found -->
+		<cm:default-properties>
+			<cm:property name="HTTPS.HOST" value="0.0.0.0"/>
+			<cm:property name="HTTPS.PORT" value="26061"/>
+			<cm:property name="HTTPS.SCHEME" value="https"/>
+			
+			<cm:property name="REQUIRED.PARENT.SERVICE.PREFIX" value="CamelJettyHttpsServer"/>
+			<cm:property name="REQUIRED.TRUSTSTORE.PARENT.SERVICE.NAME" value="api.jwt.truststore"/>
+			<cm:property name="REQUIRED.DATASECURITY.PARENT.SERVICE.NAME" value="comca.api.security.ApiSecurityService"/>
+			
+			<cm:property name="CAMELTRACER.ENABLED" value="false"/> 
+			<cm:property name="CAMELTRACER.TRACEEXCEPTIONS.ENABLED" value="true"/>
+			<cm:property name="CAMELTRACER.LOGSTACKTRACE.ENABLED" value="true"/>
+			<cm:property name="CAMELTRACER.TRACEINTERCEPTORS.ENABLED" value="true"/>
+			
+			<cm:property name="API_BASEURL" value="this is a place holder"/>
+			<cm:property name="API_BASEURL_QUERY_OPTIONS" value=""/>
+			
+			<cm:property name="SSL.CONTENT.PARAMETERS.NAME" value="camelSSLContextParameters-MutualDefault"/>
+			
+            <cm:property name="GENERAL_EXCEPTION_EVENT_NAME" value="com.api.customerservice.customers.dentalcoverages.exception"/>
+            <cm:property name="GENERAL_EXCEPTION_EVENT_PUBLISHER_ID" value="CanTechCustomerServiceCustomersDentalCoveragesRouteV1"/>
+            <cm:property name="GENERAL_EXCEPTION_EVENT_ORIGINATOR" value="com.api.customerservice.CanTechCustomerServiceCustomersDentalCoveragesResourceBundle"/>
+            <cm:property name="GENERAL_EXCEPTION_EVENT_SUMMARY" value="An Internal Server error occured."/>
+            
+            <cm:property name="ELEMENTS_TO_ENCRYPT" value=""/>
+            
+            <cm:property name="FEATURE_STUB_RESPONSES_ENABLED" value="true"/>
+			<cm:property name="FEATURE_STUB_RESPONSES_DEFAULT" value="false"/>
+            
+            <cm:property name="Core.ActiveMQ.ConnectionPool.Name" value="Core_JMS_ActiveMQ_ConnectionFactory"/>
+		</cm:default-properties>
+	</cm:property-placeholder>
+	
+	<!-- This ParentService monitor indicates which ParentService we should wait for before starting up.  
+		 Once that parentService is registered, this bundle will startup.  
+		 Also, unregistering that parentService will cause this bundle to go back into blueprint graceperiod -->
+	<!-- NOTE, the ref "blueprintBundle" is a special reference.  This reference allows access to the blueprint bundle itself -->
+	<bean id="monitorJettyHttpsService" class="aisc.core.service.management.api.ParentServiceMonitor">
+		<argument>
+			<reference interface="aisc.core.service.management.api.ParentService" ext:filter="(ParentServiceName=${REQUIRED.PARENT.SERVICE.PREFIX}_${HTTPS.PORT})"/></argument>
+		<argument ref="blueprintBundle"/>
+	</bean>
+	<bean id="monitorEncryptionKeys" class="aisc.core.service.management.api.ParentServiceMonitor">
+		<argument>
+			<reference interface="aisc.core.service.management.api.ParentService" filter="(ParentServiceName=EncryptionKeysInjected)"/>
+		</argument>
+		<argument ref="blueprintBundle"/>
+	</bean>
+	<!-- This monitorTrustedKeystore bean links a child bundle to a specific ParentService.  Once that parentService is registered, this bundle will startup.  Also, unregistering that parentService will cause this bundle to go back into blueprint graceperiod -->
+	<!-- NOTE, the ref "blueprintBundle" is a special reference.  This reference allows access to the blueprint bundle itself -->
+	<bean id="monitorTrustedKeystore" class="aisc.core.service.management.api.ParentServiceMonitor">
+		<argument>
+			<reference interface="aisc.core.service.management.api.ParentService" ext:filter="(ParentServiceName=${REQUIRED.TRUSTSTORE.PARENT.SERVICE.NAME})"/></argument>
+		<argument ref="blueprintBundle"/>
+	</bean>
+	<!-- Listen in for the parent service for Data Security to start before this bundle can start -->
+	<bean id="monitorDataSecurityService" class="aisc.core.service.management.api.ParentServiceMonitor">
+		<argument>
+			<reference interface="aisc.core.service.management.api.ParentService" ext:filter="(ParentServiceName=${REQUIRED.DATASECURITY.PARENT.SERVICE.NAME})"/></argument>
+		<argument ref="blueprintBundle"/>
+	</bean>
+	
+	<!-- ========================================================================= -->
+	<!-- Configure the ActiveMQ component for the EventPublisher                   -->
+	<!-- ========================================================================= -->
+	<!-- Connection Pool used by Core (may be different than pool used for MESH) -->
+	<reference id="coreJmsConnectionFactory" interface="javax.jms.ConnectionFactory" ext:filter="(name=${Core.ActiveMQ.ConnectionPool.Name})"/>
+
+	<bean id="corejms" class="org.apache.activemq.camel.component.ActiveMQComponent">
+		<property name="configuration">
+			<bean class="org.apache.camel.component.jms.JmsConfiguration">
+				<property name="connectionFactory" ref="coreJmsConnectionFactory"/>
+				<property name="transacted" value="false"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- This section loads the Karaf Jasypt extensions which adds a Namespace 
+		Handler for ConfigAdmin to decrypt values wrapped with ENC() on the fly -->
+	<!-- Assign our PropertyPlaceholderCryptoHandler as the encryptor-ref -->
+	<!-- Note, this needs to be located after the property placeholder or else 
+		it doesn't work properly when using file based configurations -->
+	<enc:property-placeholder id="configDecryptor" encryptor-ref="PropertyPlaceholderCryptoHandler"/>
+ 
+	<!-- ========================================================================= -->
+	<!-- Use this to enable tracing of every step in Camel. -->
+	<!-- This is enabled by setting the attribute Trace to true on the Camel 
+		Context -->
+	<!-- ========================================================================= -->
+	<bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
+		<property name="logStackTrace" value="${CAMELTRACER.LOGSTACKTRACE.ENABLED}"/>
+	    <property name="traceExceptions" value="${CAMELTRACER.TRACEEXCEPTIONS.ENABLED}"/>
+	    <property name="traceInterceptors" value="${CAMELTRACER.TRACEINTERCEPTORS.ENABLED}"/>
+	    <property name="logLevel" value="TRACE" />
+	    <property name="logName" value="camelTracer.com.api.customerservice.CustoemrsDentalCoveragesResource"/>
+	</bean>
+	
+	<reference id="sslContextParameters" interface="org.apache.camel.util.jsse.SSLContextParameters" ext:filter="(name=${SSL.CONTENT.PARAMETERS.NAME})" ext:proxy-method="classes"/>
+
+	<bean id="allowAllHostnameVerifier" class="org.apache.http.conn.ssl.AllowAllHostnameVerifier" />
+		
+	<bean id="customersDrugCoveragesServiceHelper" class="com.api.customerservice.customers.drugcoverages.service.CustomersDrugCoveragesServiceHelper" />
+	
+	<bean id="customersDrugCoveragesResponseHelper" class="com.api.customerservice.customers.drugcoverages.transform.CustomersDrugCoveragesResponseHelper">
+		<property name="cryptoHandler" ref="PropertyPlaceholderCryptoHandler" />
+	</bean>
+	
+	<bean id="getCustomersDrugCoverages" class="com.api.customerservice.customers.drugcoverages.service.GetCustomersDrugCoverages">
+		<property name="customersDrugCoveragesServiceHelper" ref="customersDrugCoveragesServiceHelper"/>
+		<property name="customersDrugCoveragesResponseHelper" ref="customersDrugCoveragesResponseHelper"/>
+		<property name="context" ref="CanTechCustomerServiceCustomersDrugCoveragesResourceBundle"/>
+	</bean>
+
+	<!-- ========================================================================= -->
+	<camel:camelContext id="CanTechCustomerServiceCustomersDrugCoveragesResourceBundle" trace="{{CAMELTRACER.ENABLED}}">
+		<!-- To fix this issue, we need to explicitly set the location of the Property Placeholder to point to the blueprint Property Placeholder -->
+		<camel:propertyPlaceholder id="properties" ignoreMissingLocation="false" location="blueprint:config" propertiesParserRef="encryptedPropertiesParser"/>
+	
+		<!-- Load Java DSL Routes from package using the packageScan method -->
+		<camel:packageScan>
+			<camel:package>com.api.customerservice.customers.drugcoverages.route</camel:package>
+		</camel:packageScan>
+		<camel:template id="customerServiceCustomersDrugCoveragesProducerTemplate"/>
+
+		<!-- If there are any XML DSL based Routes, add them here -->
+	</camel:camelContext>
+</blueprint>

@@ -1,0 +1,156 @@
+{
+  "data": {
+    "customerRecords": [
+      {
+        "id": "1234",
+        "dentalCoverages": [
+          {
+            "policy": {
+              "id": "9876542",
+              "policyNumber" :"34256"
+            },
+            "benefit": {
+              "id": "5895922"
+            },
+            "coverageStatus": {
+              "code": "9001",
+              "description": "family coverage"
+            },
+            "featureExclusion": {
+              "code": 3,
+              "description": "Special",
+              "messages": [
+                {
+                  "url": "http://test.com/",
+                  "text": "www.test.com"
+                }
+              ]
+            },
+            "benefitEffectiveDateMessage": "Our records show you will have coverage December 15, 2017.",
+            "isDentalAccidentCovered": true,
+            "isLateApplicant": true,
+            "deductibles": [
+              {
+                "details": [
+                  "$25 per person per policy year",
+                  "$50 maximum per family per policy year"
+                ],
+                "applicableProcedure": "Applicable to Routine & Major",
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ]
+              }
+            ],
+            "overallMaximums": [
+              {
+                "details": [
+                  "$100,000 per 2 policy year"
+                ],
+                "applicableProcedure": "Applicable to Routine & Major",
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ]
+              }
+            ],
+            "overallReinstatements": [
+              {
+                "details": [
+                  "$1000 per policy year"
+                ],
+                "applicableProcedure": "Applicable to Routine & Major",
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ]
+              }
+            ],
+            "feeGuideMessages": [
+              "Payment is based on the Dental Fee Guide in effect in your province of residence on the date treatment is rendered."
+            ],
+            "payables": [
+              {
+                "details": {
+                  "coverage": "Routine",
+                  "expenses": [
+                    {
+                      "name": "Basic",
+                      "percentage": "80%"
+                    }
+                  ],
+                  "coinsuranceBreakpoints": [
+                    "80% of the first $1000 per person",
+                    "80% of the first $5000 per family",
+                    "90% thereafter per calendar year"
+                  ]
+                },
+                "applicableBenefits": [
+                  {
+                    "name": {
+                      "code": "HCARE",
+                      "description": "Health"
+                    },
+                    "isCombinedWithOtherPolicy": false
+                  }
+                ]
+              }
+            ],
+            "maximumsAndFrequencies": [
+              {
+                "coverages": [
+                  {
+                    "name": "Routine & Major",
+                    "details": [
+                      {
+                        "descriptions": [
+                          "$1500 per person per policy year",
+                          "$3000 per family per policy year"
+                        ],
+                        "messages": [
+                          "lorem ispum"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "planVariationBenefitMessages": [
+              {
+                "messages": [
+                  "We are unable to display this information."
+                ]
+              },
+              {
+                "messages": [
+                  "lorem ipsum"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "uuid": "ae87448d-e0ff-40c6-b64d-2c118d62cb1c",
+    "requestId": "8737ccbc-210f-4d47-a65f-3f1bd149824c",
+    "correlationId": "190d4b2d-01c6-42bb-9d49-5edf646af874"
+  }
+}

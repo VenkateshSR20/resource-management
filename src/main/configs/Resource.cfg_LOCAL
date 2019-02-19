@@ -1,0 +1,5 @@
+FEATURE_STUB_RESPONSES_ENABLED=TRUE
+FEATURE_STUB_RESPONSES_DEFAULT=FALSE
+
+API_BASEURL=https4://localhost:26061/benefits/v1/resource
+API_BASEURL_QUERY_OPTIONS=?bridgeEndpoint=true&sslContextParameters=#sslContextParameters&x509HostnameVerifier=allowAllHostnameVerifier

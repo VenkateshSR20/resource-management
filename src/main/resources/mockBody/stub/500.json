@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "code": "500.customer-service-customers.001",
+      "message": "Internal server error",
+      "info": "https://developers.api.com"
+    }
+  ]
+}

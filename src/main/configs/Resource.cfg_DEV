@@ -1,0 +1,5 @@
+FEATURE_STUB_RESPONSES_ENABLED=TRUE
+FEATURE_STUB_RESPONSES_DEFAULT=FALSE
+
+API_BASEURL=https4://ssiidapd10.gwl.bz:26061/benefits/v1/resources
+API_BASEURL_QUERY_OPTIONS=?bridgeEndpoint=true&sslContextParameters=#sslContextParameters
